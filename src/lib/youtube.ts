@@ -1,11 +1,4 @@
-import { google } from "googleapis";
-
-function getYoutubeClient() {
-    return google.youtube({
-        version: "v3",
-        auth: process.env.YOUTUBE_API_KEY,
-    });
-}
+import YouTube from "youtube-sr";
 
 export interface VideoItem {
     id: string;
@@ -18,67 +11,40 @@ export interface VideoItem {
 }
 
 export async function getChannelVideos(channelId: string) {
-    const youtube = getYoutubeClient();
     try {
-        // Get the uploads playlist ID for the channel
-        const channelResponse = await youtube.channels.list({
-            part: ["contentDetails"],
-            id: [channelId],
-        });
+        // Build a search query for the channel's videos
+        const videos = await YouTube.search(channelId, { limit: 20, type: "video" });
 
-        const uploadsPlaylistId = channelResponse.data.items?.[0]?.contentDetails?.relatedPlaylists?.uploads;
-        if (!uploadsPlaylistId) return [];
-
-        const playlistResponse = await youtube.playlistItems.list({
-            part: ["snippet", "contentDetails"],
-            playlistId: uploadsPlaylistId,
-            maxResults: 20,
-        });
-
-        const videoIds = playlistResponse.data.items?.map((item) => item.contentDetails?.videoId).filter(Boolean) as string[] || [];
-        if (videoIds.length === 0) return [];
-
-        const videoResponse = await youtube.videos.list({
-            part: ["snippet", "statistics"],
-            id: videoIds,
-        });
-
-        return videoResponse.data.items?.map((item) => ({
-            id: item.id!,
-            title: item.snippet?.title || "",
-            thumbnail: item.snippet?.thumbnails?.high?.url || item.snippet?.thumbnails?.default?.url || "",
-            viewCount: parseInt(item.statistics?.viewCount || "0", 10),
-            publishedAt: item.snippet?.publishedAt || "",
-            channelTitle: item.snippet?.channelTitle || "",
-            channelId: item.snippet?.channelId || "",
-        })) || [];
+        return videos.map((video) => ({
+            id: video.id!,
+            title: video.title || "",
+            thumbnail: video.thumbnail?.url || "",
+            viewCount: video.views || 0,
+            publishedAt: video.uploadedAt || "",
+            channelTitle: video.channel?.name || "",
+            channelId: video.channel?.id || channelId,
+        }));
     } catch (error: any) {
-        console.error(`YouTube API Error for channel ${channelId}:`, error?.response?.data || error.message);
+        console.error(`Scraping Error [getChannelVideos] (${channelId}):`, error.message);
         return [];
     }
 }
 
 export async function resolveChannelId(url: string) {
-    const youtube = getYoutubeClient();
     try {
-        // Simple regex to extract part of the URL
-        const handleMatch = url.match(/@([^/?#]+)/);
-        if (handleMatch) {
-            const response = await youtube.search.list({
-                part: ["snippet"],
-                q: handleMatch[0],
-                type: ["channel"],
-                maxResults: 1,
-            });
-            return response.data.items?.[0]?.snippet?.channelId || null;
+        // If it's a full URL, we can try to find the video or channel context
+        const videos = await YouTube.search(url, { limit: 1, type: "video" });
+        if (videos.length > 0 && videos[0].channel) {
+            return videos[0].channel.id;
         }
 
-        const idMatch = url.match(/channel\/([^/?#]+)/);
-        if (idMatch) return idMatch[1];
+        // Try searching as a channel
+        const channels = await YouTube.search(url, { limit: 1, type: "channel" });
+        if (channels.length > 0) return channels[0].id;
 
         return null;
     } catch (error: any) {
-        console.error(`YouTube API Error resolving ${url}:`, error?.response?.data || error.message);
+        console.error(`Scraping Error [resolveChannelId] (${url}):`, error.message);
         return null;
     }
 }

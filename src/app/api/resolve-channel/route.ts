@@ -9,6 +9,7 @@ export async function POST(request: Request) {
 
     try {
         const channelId = await resolveChannelId(url);
+        console.log(`Resolved URL ${url} to ID: ${channelId}`);
         if (!channelId) {
             return NextResponse.json({ error: "Could not find a valid YouTube channel at that URL. Double check the link." }, { status: 400 });
         }

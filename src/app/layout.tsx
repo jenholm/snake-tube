@@ -8,7 +8,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Snake-Tube Lite",
+  title: "Snake-Tube",
   description: "Your premium YouTube feed",
 };
 

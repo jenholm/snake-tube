@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { VideoItem } from "@/lib/youtube";
-import { Play, Plus, Youtube, Eye, Trash2 } from "lucide-react";
+import { Play, Plus, Youtube, Eye, Trash2, MoreVertical } from "lucide-react";
 
 export default function Home() {
   const [videos, setVideos] = useState<VideoItem[]>([]);
@@ -11,6 +11,7 @@ export default function Home() {
   const [watchedVideos, setWatchedVideos] = useState<string[]>([]);
   const [channelUrl, setChannelUrl] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [openMenu, setOpenMenu] = useState<string | null>(null); // State for which video menu is open
 
   useEffect(() => {
     // Load local storage data
@@ -27,6 +28,12 @@ export default function Home() {
 
     const savedWatched = localStorage.getItem("snakeTubeWatched");
     if (savedWatched) setWatchedVideos(JSON.parse(savedWatched));
+  }, []);
+
+  useEffect(() => {
+    const handleGlobalClick = () => setOpenMenu(null);
+    window.addEventListener("click", handleGlobalClick);
+    return () => window.removeEventListener("click", handleGlobalClick);
   }, []);
 
   useEffect(() => {
@@ -105,7 +112,7 @@ export default function Home() {
             <div className="w-8 h-8 bg-[#f50057] rounded flex items-center justify-center">
               <Play className="w-5 h-5 text-white fill-current" />
             </div>
-            <h1 className="text-2xl font-bold tracking-tighter uppercase">Snake-Tube Lite</h1>
+            <h1 className="text-2xl font-bold tracking-tighter uppercase">Snake-Tube</h1>
           </div>
 
           <form onSubmit={handleAddChannel} className="flex-1 max-w-lg hidden sm:flex gap-2">
@@ -190,19 +197,50 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredVideos.map((video) => (
               <div key={video.id} className="video-card rounded-2xl overflow-hidden flex flex-col group relative">
-                <button
-                  onClick={() => markAsWatched(video.id)}
-                  className="absolute top-2 right-2 z-10 p-2 bg-black/70 hover:bg-[#f50057] rounded-full opacity-0 group-hover:opacity-100 transition-all text-white border border-white/10"
-                  title="Mark as watched"
-                >
-                  <Eye className="w-4 h-4" />
-                </button>
+                {/* Actions Menu */}
+                <div className="absolute top-2 right-2 z-20 flex gap-2">
+                  <button
+                    onClick={() => markAsWatched(video.id)}
+                    className="p-2 bg-black/70 hover:bg-[#f50057] rounded-full opacity-0 group-hover:opacity-100 transition-all text-white border border-white/10"
+                    title="Mark as watched"
+                  >
+                    <Eye className="w-4 h-4" />
+                  </button>
+
+                  <div className="relative">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setOpenMenu(openMenu === video.id ? null : video.id);
+                      }}
+                      className="p-2 bg-black/70 hover:bg-white/10 rounded-full opacity-0 group-hover:opacity-100 transition-all text-white border border-white/10"
+                    >
+                      <MoreVertical className="w-4 h-4" />
+                    </button>
+
+                    {openMenu === video.id && (
+                      <div className="absolute right-0 mt-2 w-48 glass border border-white/10 rounded-xl overflow-hidden shadow-2xl z-30">
+                        <button
+                          onClick={() => {
+                            removeChannel(video.channelId);
+                            setOpenMenu(null);
+                          }}
+                          className="w-full px-4 py-3 text-left text-sm text-red-400 hover:bg-white/5 flex items-center gap-2 transition-colors"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                          Remove Channel
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
 
                 <a
                   href={`https://www.youtube.com/watch?v=${video.id}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block aspect-video overflow-hidden bg-zinc-900"
+                  onClick={() => setOpenMenu(null)}
                 >
                   <img
                     src={video.thumbnail}
@@ -216,20 +254,11 @@ export default function Home() {
                     {video.title}
                   </h3>
                   <div className="mt-auto">
-                    <div className="flex items-center justify-between">
-                      <p className="text-xs text-zinc-500 font-medium uppercase tracking-wider">{video.channelTitle}</p>
-                      <button
-                        onClick={() => removeChannel(video.channelId)}
-                        className="text-zinc-600 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
-                        title="Remove channel from feed"
-                      >
-                        <Trash2 className="w-3 h-3" />
-                      </button>
-                    </div>
+                    <p className="text-xs text-zinc-500 font-medium uppercase tracking-wider">{video.channelTitle}</p>
                     <div className="flex items-center gap-2 text-xs text-zinc-400 mt-1">
                       <span>{video.viewCount.toLocaleString()} views</span>
                       <span className="w-1 h-1 bg-zinc-700 rounded-full"></span>
-                      <span>{new Date(video.publishedAt).toLocaleDateString()}</span>
+                      <span>{video.publishedAt}</span>
                     </div>
                   </div>
                 </div>
