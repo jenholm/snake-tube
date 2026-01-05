@@ -1,35 +1,59 @@
-# Snake-Tube
+# 🐍 Snake-Tube
 
-A premium, private YouTube aggregator that puts control back in your hands. No API keys, no tracking, just your favorite channels in a beautifully curated grid.
+A zero-config, premium YouTube aggregator that strictly filters content to your saved channels. Built for **Enholm Heuristics**.
 
-## Features
+## ✨ Features
 
-- **Privacy First**: No Google Login or API keys required.
-- **Smart Sorting**: Videos are automatically sorted by view count, so you see what's trending first.
-- **Clean Interface**: Mark videos as watched to hide them instantly.
-- **Simple Management**: Add channels via handle (e.g., `@handle`) or URL and remove them anytime with the three-dot menu.
-- **Dark Mode**: Premium glassmorphism design optimized for nighttime viewing.
+- **Zero-Config**: No YouTube API keys or OAuth required.
+- **Strict Filtering**: Only shows videos from channels you actually subscribe to.
+- **Server-Side Persistence**: Your channel list is saved on the server.
+- **Premium UI**: Dark-mode glassmorphism with responsive grid and custom bridge animation.
+- **Mark as Watched**: Instantly hide videos you've already seen.
 
-## Getting Started
+## 🚀 Getting Started
 
-1.  **Install dependencies**:
-    ```bash
-    npm install
-    ```
-2.  **Run the app**:
-    ```bash
-    npm run dev
-    ```
-3.  Visit `http://localhost:3030`.
+### Prerequisites
 
-## Tech Stack
+- Node.js 18+
+- npm
 
-- **Framework**: Next.js 14
-- **Styling**: Tailwind CSS
-- **Scraping**: youtube-sr
+### Installation & Run
+
+1. **Clone and Install**:
+   ```bash
+   git clone https://github.com/jenholm/snake-tube.git
+   cd snake-tube
+   npm install
+   ```
+
+2. **Start Dev Server**:
+   ```bash
+   npm run dev
+   ```
+   The app will be available at `http://localhost:3030`.
+
+3. **Build for Production**:
+   ```bash
+   npm run build
+   npm start
+   ```
+
+## 🔒 Persistence & Storage
+
+- **Channels**: Stored on the server at `data/channels.json`. This is shared across all clients.
+- **Watched Videos**: Stored in your browser's `localStorage` (per-user).
+
+## 🛠️ Architecture
+
+- **Framework**: Next.js 14 (App Router)
+- **Scraping**: `youtube-sr`
 - **Icons**: Lucide React
-- **Storage**: Browser LocalStorage
+- **Branding**: Enholm Heuristics Bridge Animation (Canvas)
+
+## ⚖️ License
+
+Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
-Built by **Andy Antigravity**
-
+Built by **Andy Antigravity**  
+© 2026 **Enholm Heuristics**. All rights reserved.
