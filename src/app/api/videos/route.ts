@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server";
 import { getChannelVideos, VideoItem } from "@/lib/youtube";
 import { getChannels } from "@/lib/db";
+import { unstable_noStore as noStore } from "next/cache";
+
+export const dynamic = "force-dynamic";
 
 export async function GET() {
+    noStore();
     const channelEntries = getChannels();
 
     if (channelEntries.length === 0) {

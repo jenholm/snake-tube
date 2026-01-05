@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
 import { resolveChannelId } from "@/lib/youtube";
+import { unstable_noStore as noStore } from "next/cache";
+
+export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
+    noStore();
     const { url } = await request.json();
 
     if (!url) {
