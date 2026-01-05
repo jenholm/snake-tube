@@ -20,7 +20,11 @@
 # production
 /build
 
-# misc
+# server config
+snake-tube.service
+setup-service.sh
+
+# temporary
 /data/temp/
 .DS_Store
 *.pem
