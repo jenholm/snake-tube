@@ -138,15 +138,15 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-black text-zinc-100 font-sans">
       {/* Header */}
-      <header className="sticky top-0 z-50 glass border-b border-white/5 py-4 px-6 mb-8">
+      <header className="sticky top-0 z-50 glass border-b border-white/5 pt-8 pb-4 px-6 mb-8">
         {/* Company Link - Top Center */}
-        <div className="absolute top-0 left-0 w-full flex justify-center -translate-y-1/2 pointer-events-none">
-          <div className="bg-white/5 border border-white/10 px-4 py-1 rounded-full pointer-events-auto backdrop-blur-md">
+        <div className="absolute top-2 left-0 w-full flex justify-center pointer-events-none">
+          <div className="bg-white/5 border border-white/10 px-6 py-1.5 rounded-full pointer-events-auto backdrop-blur-md hover:border-[#f50057]/30 transition-all">
             <a
               href="https://enholm.net"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[10px] uppercase tracking-widest font-bold text-zinc-400 hover:text-[#f50057] transition-colors"
+              className="text-[10px] uppercase tracking-[0.2em] font-bold text-zinc-400 hover:text-[#f50057] transition-colors"
             >
               Enholm Heuristics
             </a>
