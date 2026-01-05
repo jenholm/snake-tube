@@ -7,25 +7,17 @@ import { Play, Plus, Youtube, Eye, Trash2, MoreVertical } from "lucide-react";
 export default function Home() {
   const [videos, setVideos] = useState<VideoItem[]>([]);
   const [loading, setLoading] = useState(false);
-  const [manualChannels, setManualChannels] = useState<string[]>([]);
+  const [manualChannels, setManualChannels] = useState<{ id: string, name: string }[]>([]);
   const [watchedVideos, setWatchedVideos] = useState<string[]>([]);
   const [channelUrl, setChannelUrl] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [openMenu, setOpenMenu] = useState<string | null>(null); // State for which video menu is open
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   useEffect(() => {
-    // Load local storage data
-    const savedChannels = localStorage.getItem("snakeTubeChannels");
-    if (savedChannels) {
-      const parsed = JSON.parse(savedChannels);
-      setManualChannels(parsed);
-    } else {
-      // Default channel (e.g., YouTube) if empty
-      const defaults = ["UCBR8-60-B28hp2BmDPdntcQ"]; // YouTube's own channel
-      setManualChannels(defaults);
-      localStorage.setItem("snakeTubeChannels", JSON.stringify(defaults));
-    }
+    // Initial data fetch
+    fetchChannels();
 
+    // Watched status still lives in localStorage as it's per-user/browser
     const savedWatched = localStorage.getItem("snakeTubeWatched");
     if (savedWatched) setWatchedVideos(JSON.parse(savedWatched));
   }, []);
@@ -36,6 +28,19 @@ export default function Home() {
     return () => window.removeEventListener("click", handleGlobalClick);
   }, []);
 
+  const fetchChannels = async () => {
+    try {
+      const res = await fetch("/api/channels");
+      if (res.ok) {
+        const data = await res.json();
+        setManualChannels(data);
+        // fetchVideos will be triggered by manualChannels change
+      }
+    } catch (err) {
+      console.error("Error fetching channels:", err);
+    }
+  };
+
   useEffect(() => {
     fetchVideos();
   }, [manualChannels]);
@@ -43,13 +48,14 @@ export default function Home() {
   const fetchVideos = async () => {
     if (manualChannels.length === 0) {
       setVideos([]);
+      setLoading(false);
       return;
     }
+
     setLoading(true);
     setError(null);
     try {
-      console.log("Fetching videos for channels:", manualChannels);
-      const res = await fetch(`/api/videos?channels=${manualChannels.join(",")}`);
+      const res = await fetch(`/api/videos`);
       if (!res.ok) throw new Error("Failed to fetch videos");
       const data = await res.json();
       setVideos(data);
@@ -65,37 +71,54 @@ export default function Home() {
     if (!channelUrl) return;
 
     try {
-      const res = await fetch("/api/resolve-channel", {
+      setLoading(true);
+      // 1. Resolve the URL to an ID
+      const resolveRes = await fetch("/api/resolve-channel", {
         method: "POST",
         body: JSON.stringify({ url: channelUrl }),
         headers: { "Content-Type": "application/json" },
       });
-      const data = await res.json();
+      const resolveData = await resolveRes.json();
 
-      if (data.channelId) {
-        if (!manualChannels.includes(data.channelId)) {
-          const newChannels = [...manualChannels, data.channelId];
-          setManualChannels(newChannels);
-          localStorage.setItem("snakeTubeChannels", JSON.stringify(newChannels));
+      if (resolveData.channelId) {
+        // 2. Add to server-side list
+        const addRes = await fetch("/api/channels", {
+          method: "POST",
+          body: JSON.stringify({
+            channelId: resolveData.channelId,
+            channelName: resolveData.channelName
+          }),
+          headers: { "Content-Type": "application/json" },
+        });
+
+        if (addRes.ok) {
+          const updatedChannels = await addRes.json();
+          setManualChannels(updatedChannels);
+          setChannelUrl("");
         }
-        setChannelUrl("");
       } else {
-        setError(data.error || "Could not find channel");
+        setError(resolveData.error || "Could not find channel");
       }
     } catch (err: any) {
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const removeChannel = (id: string) => {
-    console.log("Removing channel:", id);
-    setManualChannels(prev => {
-      const newChannels = prev.filter(c => c !== id);
-      localStorage.setItem("snakeTubeChannels", JSON.stringify(newChannels));
-      return newChannels;
-    });
-    // Immediately remove videos from the UI for better feedback
-    setVideos(prev => prev.filter(v => v.channelId !== id));
+  const removeChannel = async (id: string) => {
+    try {
+      const res = await fetch(`/api/channels?id=${id}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        const updatedChannels = await res.json();
+        setManualChannels(updatedChannels);
+        // videos will re-filter via manualChannels useEffect
+      }
+    } catch (err) {
+      console.error("Error removing channel:", err);
+    }
   };
 
   const markAsWatched = (videoId: string) => {
@@ -133,7 +156,8 @@ export default function Home() {
             />
             <button
               type="submit"
-              className="bg-[#f50057] hover:bg-[#f50057]/90 p-2 px-4 rounded-lg transition-colors text-white font-medium flex items-center gap-2"
+              disabled={loading}
+              className="bg-[#f50057] hover:bg-[#f50057]/90 p-2 px-4 rounded-lg transition-colors text-white font-medium flex items-center gap-2 disabled:opacity-50"
             >
               <Plus className="w-5 h-5" />
               <span>Add</span>
@@ -152,7 +176,6 @@ export default function Home() {
       </header>
 
       <main className="max-w-7xl mx-auto px-6 pb-12">
-        {/* Mobile Input */}
         <form onSubmit={handleAddChannel} className="flex sm:hidden gap-2 mb-8">
           <input
             type="text"
@@ -163,7 +186,8 @@ export default function Home() {
           />
           <button
             type="submit"
-            className="bg-[#f50057] p-2 rounded-lg transition-colors text-white"
+            disabled={loading}
+            className="bg-[#f50057] p-2 rounded-lg transition-colors text-white disabled:opacity-50"
           >
             <Plus className="w-6 h-6" />
           </button>
@@ -205,7 +229,6 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredVideos.map((video) => (
               <div key={video.id} className="video-card rounded-2xl overflow-hidden flex flex-col group relative">
-                {/* Actions Menu */}
                 <div className="absolute top-2 right-2 z-20 flex gap-2">
                   <button
                     onClick={() => markAsWatched(video.id)}
@@ -236,7 +259,7 @@ export default function Home() {
                           className="w-full px-4 py-3 text-left text-sm text-red-400 hover:bg-white/5 flex items-center gap-2 transition-colors"
                         >
                           <Trash2 className="w-4 h-4" />
-                          Remove Channel
+                          Remove {video.channelTitle}
                         </button>
                       </div>
                     )}

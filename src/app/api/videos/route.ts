@@ -1,18 +1,18 @@
 import { NextResponse } from "next/server";
 import { getChannelVideos, VideoItem } from "@/lib/youtube";
+import { getChannels } from "@/lib/db";
 
-export async function GET(request: Request) {
-    const { searchParams } = new URL(request.url);
-    const manualChannels = searchParams.get("channels")?.split(",").filter(Boolean) || [];
+export async function GET() {
+    const channelEntries = getChannels();
 
-    if (manualChannels.length === 0) {
+    if (channelEntries.length === 0) {
         return NextResponse.json([]);
     }
 
     try {
         // Fetch videos from all channels in parallel
-        const videoPromises = manualChannels.map((id) =>
-            getChannelVideos(id)
+        const videoPromises = channelEntries.map((c) =>
+            getChannelVideos(c.id)
         );
 
         const videoResults = await Promise.all(videoPromises);
