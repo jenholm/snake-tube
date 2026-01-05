@@ -12,7 +12,7 @@ export async function GET() {
     try {
         // Fetch videos from all channels in parallel
         const videoPromises = channelEntries.map((c) =>
-            getChannelVideos(c.id)
+            getChannelVideos(c.id, c.name)
         );
 
         const videoResults = await Promise.all(videoPromises);

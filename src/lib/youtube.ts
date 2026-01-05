@@ -10,14 +10,15 @@ export interface VideoItem {
     channelId: string;
 }
 
-export async function getChannelVideos(channelId: string) {
+export async function getChannelVideos(channelId: string, channelName?: string) {
     try {
-        // Search for the channel ID as a query
-        const videos = await YouTube.search(channelId, { limit: 20, type: "video" });
+        // Use channel name for search if available, otherwise fallback to ID
+        // Searching by name is much more likely to return actual videos from that channel
+        const query = channelName || channelId;
+        const videos = await YouTube.search(query, { limit: 20, type: "video" });
 
         // IMPORTANT: Strictly filter to ONLY include videos from THIS channel ID.
-        // YouTube.search is a keyword search, so it returns "related" videos.
-        // We must filter them out so removal actually works as expected.
+        // This prevents "related" videos from other channels from ghosting into the feed.
         return videos
             .filter((video) => video.channel?.id === channelId)
             .map((video) => ({
