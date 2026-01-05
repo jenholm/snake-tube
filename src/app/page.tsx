@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { VideoItem } from "@/lib/youtube";
 import { Play, Plus, Youtube, Eye, Trash2, MoreVertical } from "lucide-react";
+import { BridgeAnimation } from "@/components/BridgeAnimation";
 
 export default function Home() {
   const [videos, setVideos] = useState<VideoItem[]>([]);
@@ -138,12 +139,33 @@ export default function Home() {
     <div className="min-h-screen bg-black text-zinc-100 font-sans">
       {/* Header */}
       <header className="sticky top-0 z-50 glass border-b border-white/5 py-4 px-6 mb-8">
+        {/* Company Link - Top Center */}
+        <div className="absolute top-0 left-0 w-full flex justify-center -translate-y-1/2 pointer-events-none">
+          <div className="bg-white/5 border border-white/10 px-4 py-1 rounded-full pointer-events-auto backdrop-blur-md">
+            <a
+              href="https://enholm.net"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[10px] uppercase tracking-widest font-bold text-zinc-400 hover:text-[#f50057] transition-colors"
+            >
+              Enholm Heuristics
+            </a>
+          </div>
+        </div>
+
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-[#f50057] rounded flex items-center justify-center">
-              <Play className="w-5 h-5 text-white fill-current" />
+          <div className="flex items-center gap-6">
+            {/* Branding - Left */}
+            <div className="hidden lg:block border-r border-white/10 pr-6">
+              <BridgeAnimation />
             </div>
-            <h1 className="text-2xl font-bold tracking-tighter uppercase">Snake-Tube</h1>
+
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-[#f50057] rounded flex items-center justify-center">
+                <Play className="w-5 h-5 text-white fill-current" />
+              </div>
+              <h1 className="text-2xl font-bold tracking-tighter uppercase">Snake-Tube</h1>
+            </div>
           </div>
 
           <form onSubmit={handleAddChannel} className="flex-1 max-w-lg hidden sm:flex gap-2">
@@ -306,6 +328,12 @@ export default function Home() {
           </div>
         )}
       </main>
+
+      <footer className="max-w-7xl mx-auto px-6 py-12 border-t border-white/5 text-center">
+        <p className="text-zinc-500 text-sm tracking-wide">
+          © {new Date().getFullYear()} Enholm Heuristics. All rights reserved.
+        </p>
+      </footer>
     </div>
   );
 }
