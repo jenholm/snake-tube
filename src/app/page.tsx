@@ -138,34 +138,31 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-black text-zinc-100 font-sans">
       {/* Header */}
-      <header className="sticky top-0 z-50 glass border-b border-white/5 mb-10 overflow-hidden">
-        {/* Row 1: Enholm Heuristics Branding */}
-        <div className="flex justify-center pt-6 pb-2">
-          <div className="bg-white/5 border border-white/10 px-8 py-2 rounded-full backdrop-blur-md hover:border-[#f50057]/40 transition-all shadow-xl">
-            <a
-              href="https://enholm.net"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[11px] uppercase tracking-[0.3em] font-extrabold text-zinc-400 hover:text-[#f50057] transition-colors"
-            >
-              Enholm Heuristics
-            </a>
-          </div>
-        </div>
-
-        {/* Row 2: Main Dashboard Controls */}
-        <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between gap-8">
+      <header className="sticky top-0 z-50 glass border-b border-white/5 py-4 px-6 mb-10 overflow-hidden">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-8">
+          {/* Left: Branding & Company Link Grouped */}
           <div className="flex items-center gap-8">
-            {/* Bridge Illustration */}
             <div className="hidden lg:block border-r border-white/10 pr-8">
               <BridgeAnimation />
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 mr-4">
               <div className="w-10 h-10 bg-[#f50057] rounded-xl flex items-center justify-center shadow-lg shadow-[#f50057]/20">
                 <Play className="w-6 h-6 text-white fill-current" />
               </div>
               <h1 className="text-3xl font-black tracking-tighter uppercase italic">Snake-Tube</h1>
+            </div>
+
+            {/* Enholm Heuristics Pill - Now Level with Title */}
+            <div className="hidden xl:block px-6 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-md hover:border-[#f50057]/40 transition-all shadow-xl">
+              <a
+                href="https://enholm.net"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[11px] uppercase tracking-[0.3em] font-extrabold text-zinc-400 hover:text-[#f50057] transition-colors whitespace-nowrap"
+              >
+                Enholm Heuristics
+              </a>
             </div>
           </div>
 
