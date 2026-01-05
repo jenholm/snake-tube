@@ -37,15 +37,18 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (manualChannels.length > 0) {
-      fetchVideos();
-    }
+    fetchVideos();
   }, [manualChannels]);
 
   const fetchVideos = async () => {
+    if (manualChannels.length === 0) {
+      setVideos([]);
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
+      console.log("Fetching videos for channels:", manualChannels);
       const res = await fetch(`/api/videos?channels=${manualChannels.join(",")}`);
       if (!res.ok) throw new Error("Failed to fetch videos");
       const data = await res.json();
@@ -85,9 +88,14 @@ export default function Home() {
   };
 
   const removeChannel = (id: string) => {
-    const newChannels = manualChannels.filter(c => c !== id);
-    setManualChannels(newChannels);
-    localStorage.setItem("snakeTubeChannels", JSON.stringify(newChannels));
+    console.log("Removing channel:", id);
+    setManualChannels(prev => {
+      const newChannels = prev.filter(c => c !== id);
+      localStorage.setItem("snakeTubeChannels", JSON.stringify(newChannels));
+      return newChannels;
+    });
+    // Immediately remove videos from the UI for better feedback
+    setVideos(prev => prev.filter(v => v.channelId !== id));
   };
 
   const markAsWatched = (videoId: string) => {
