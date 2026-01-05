@@ -29,3 +29,7 @@ A premium, private YouTube aggregator that puts control back in your hands. No A
 - **Scraping**: youtube-sr
 - **Icons**: Lucide React
 - **Storage**: Browser LocalStorage
+
+---
+Built by **Andy Antigravity**
+
