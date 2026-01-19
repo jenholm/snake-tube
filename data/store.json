@@ -12,99 +12,99 @@
   "sourceReputation": {
     "UCgzJHvOhLert9g2yT-09RMQ": {
       "passRate": 1,
-      "avgScore": 9.63755868544601,
+      "avgScore": 9.534156378600823,
       "userEngagement": 0,
-      "totalTriaged": 213
+      "totalTriaged": 243
     },
     "UC2kEuLCRUrWAvHlupobn4aw": {
       "passRate": 1,
-      "avgScore": 9.711827956989243,
+      "avgScore": 9.665306122448975,
       "userEngagement": 0,
-      "totalTriaged": 186
+      "totalTriaged": 196
     },
     "UC5T0tXJN5CrMZUEJuz4oovw": {
       "passRate": 1,
-      "avgScore": 2.9090909090909083,
+      "avgScore": 4.453608247422679,
       "userEngagement": 0,
-      "totalTriaged": 88
+      "totalTriaged": 97
     },
     "UCaDeBhtXsTCS0W0pT9AzPbg": {
       "passRate": 1,
-      "avgScore": 3.125,
+      "avgScore": 1.8518518518518519,
       "userEngagement": 0,
-      "totalTriaged": 16
+      "totalTriaged": 27
     },
     "UCC_0vyFTKk1Nlodo4QsiQkw": {
       "passRate": 1,
-      "avgScore": 1.5866666666666671,
+      "avgScore": 1.4000000000000006,
       "userEngagement": 0,
-      "totalTriaged": 150
+      "totalTriaged": 170
     },
     "UC92iwH5d9u0CeJtCx17YT9Q": {
       "passRate": 1,
-      "avgScore": 1.4693333333333327,
+      "avgScore": 1.281395348837209,
       "userEngagement": 0,
-      "totalTriaged": 150
+      "totalTriaged": 172
     },
     "UCSJPFQdZwrOutnmSFYtbstA": {
       "passRate": 1,
-      "avgScore": 3.395833333333334,
+      "avgScore": 2.9369369369369376,
       "userEngagement": 0,
-      "totalTriaged": 96
+      "totalTriaged": 111
     },
     "UCK2nGbJkxJNDckF6uMeaY0A": {
       "passRate": 1,
-      "avgScore": 1.1111111111111112,
+      "avgScore": 0.9868421052631581,
       "userEngagement": 0,
-      "totalTriaged": 135
+      "totalTriaged": 152
     },
     "UC-mfn4ibOC5ewLcpmgl0C4g": {
       "passRate": 1,
-      "avgScore": 0.9090909090909093,
+      "avgScore": 0.806451612903226,
       "userEngagement": 0,
-      "totalTriaged": 165
+      "totalTriaged": 186
     },
     "UCe02lGcO-ahAURWuxAJnjdA": {
       "passRate": 1,
-      "avgScore": 2.5,
+      "avgScore": 2.173913043478261,
       "userEngagement": 0,
-      "totalTriaged": 20
+      "totalTriaged": 23
     },
     "UC3mk37VSKyC9eW2B17Q3Imw": {
       "passRate": 1,
-      "avgScore": 1.1111111111111114,
+      "avgScore": 0.8695652173913042,
       "userEngagement": 0,
-      "totalTriaged": 90
+      "totalTriaged": 115
     },
     "UCB1_GCA1xQB-Ida6-PqJ4og": {
       "passRate": 1,
-      "avgScore": 1.3392857142857142,
+      "avgScore": 1.0638297872340425,
       "userEngagement": 0,
-      "totalTriaged": 112
+      "totalTriaged": 141
     },
     "UCQa62kyOcsyhVUqyvRCbDNQ": {
       "passRate": 1,
-      "avgScore": 2.2388059701492535,
+      "avgScore": 1.948051948051948,
       "userEngagement": 0,
-      "totalTriaged": 67
+      "totalTriaged": 77
     },
     "UCVTQunGrE3p7Oq8Owao5y_Q": {
       "passRate": 1,
-      "avgScore": 1.7241379310344827,
+      "avgScore": 1.3274336283185841,
       "userEngagement": 0,
-      "totalTriaged": 87
+      "totalTriaged": 113
     },
     "UCSHZKyawb77ixDdsGog4iWA": {
       "passRate": 1,
-      "avgScore": 1.6853932584269662,
+      "avgScore": 1.293103448275862,
       "userEngagement": 0,
-      "totalTriaged": 89
+      "totalTriaged": 116
     },
     "UC4gD0czpXVv_LpADTSU624g": {
       "passRate": 1,
-      "avgScore": 2.9411764705882355,
+      "avgScore": 2.34375,
       "userEngagement": 0,
-      "totalTriaged": 51
+      "totalTriaged": 64
     },
     "UCBR8-60-B28hp2BmDPdntcQ": {
       "passRate": 1,
@@ -114,45 +114,45 @@
     },
     "UCT_yBgKSiwb3WP4ACPnF5nA": {
       "passRate": 1,
-      "avgScore": 2.142857142857143,
+      "avgScore": 1.5,
       "userEngagement": 0,
-      "totalTriaged": 70
+      "totalTriaged": 100
     },
     "UCsfasHJphdMDFkcse5sQ9Uw": {
       "passRate": 1,
-      "avgScore": 3.061224489795918,
+      "avgScore": 2.1739130434782608,
       "userEngagement": 0,
-      "totalTriaged": 49
+      "totalTriaged": 69
     },
     "UCdxGqN9_aBisOJHzIRTGLfg": {
+      "passRate": 1,
+      "avgScore": 2.5,
+      "userEngagement": 0,
+      "totalTriaged": 60
+    },
+    "UCRMiFgN0EEIPrhJP58kRMyw": {
+      "passRate": 1,
+      "avgScore": 3,
+      "userEngagement": 0,
+      "totalTriaged": 50
+    },
+    "UCHm8vWol8eNjTJZSjq2jaLQ": {
+      "passRate": 1,
+      "avgScore": 1.1111111111111112,
+      "userEngagement": 0,
+      "totalTriaged": 45
+    },
+    "UC3H5lJfctAJRgHzY3JIuwsw": {
+      "passRate": 1,
+      "avgScore": 5.555555555555555,
+      "userEngagement": 0,
+      "totalTriaged": 27
+    },
+    "UC5ckqMQFqpqVbGJNiHhNE7Q": {
       "passRate": 1,
       "avgScore": 4.285714285714286,
       "userEngagement": 0,
       "totalTriaged": 35
-    },
-    "UCRMiFgN0EEIPrhJP58kRMyw": {
-      "passRate": 1,
-      "avgScore": 5,
-      "userEngagement": 0,
-      "totalTriaged": 30
-    },
-    "UCHm8vWol8eNjTJZSjq2jaLQ": {
-      "passRate": 1,
-      "avgScore": 3.125,
-      "userEngagement": 0,
-      "totalTriaged": 16
-    },
-    "UC3H5lJfctAJRgHzY3JIuwsw": {
-      "passRate": 1,
-      "avgScore": 50,
-      "userEngagement": 0,
-      "totalTriaged": 3
-    },
-    "UC5ckqMQFqpqVbGJNiHhNE7Q": {
-      "passRate": 1,
-      "avgScore": 18.75,
-      "userEngagement": 0,
-      "totalTriaged": 8
     }
   },
   "pendingQuestions": [],
