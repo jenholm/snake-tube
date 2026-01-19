@@ -1,0 +1,168 @@
+{
+  "blockedChannels": [],
+  "demotedChannels": [],
+  "demotedTopics": [],
+  "channelScores": {},
+  "topicScores": {},
+  "watchHistory": [],
+  "interestModel": {
+    "stablePreferences": "",
+    "sessionIntent": ""
+  },
+  "sourceReputation": {
+    "UCgzJHvOhLert9g2yT-09RMQ": {
+      "passRate": 1,
+      "avgScore": 9.63755868544601,
+      "userEngagement": 0,
+      "totalTriaged": 213
+    },
+    "UC2kEuLCRUrWAvHlupobn4aw": {
+      "passRate": 1,
+      "avgScore": 9.711827956989243,
+      "userEngagement": 0,
+      "totalTriaged": 186
+    },
+    "UC5T0tXJN5CrMZUEJuz4oovw": {
+      "passRate": 1,
+      "avgScore": 2.9090909090909083,
+      "userEngagement": 0,
+      "totalTriaged": 88
+    },
+    "UCaDeBhtXsTCS0W0pT9AzPbg": {
+      "passRate": 1,
+      "avgScore": 3.125,
+      "userEngagement": 0,
+      "totalTriaged": 16
+    },
+    "UCC_0vyFTKk1Nlodo4QsiQkw": {
+      "passRate": 1,
+      "avgScore": 1.5866666666666671,
+      "userEngagement": 0,
+      "totalTriaged": 150
+    },
+    "UC92iwH5d9u0CeJtCx17YT9Q": {
+      "passRate": 1,
+      "avgScore": 1.4693333333333327,
+      "userEngagement": 0,
+      "totalTriaged": 150
+    },
+    "UCSJPFQdZwrOutnmSFYtbstA": {
+      "passRate": 1,
+      "avgScore": 3.395833333333334,
+      "userEngagement": 0,
+      "totalTriaged": 96
+    },
+    "UCK2nGbJkxJNDckF6uMeaY0A": {
+      "passRate": 1,
+      "avgScore": 1.1111111111111112,
+      "userEngagement": 0,
+      "totalTriaged": 135
+    },
+    "UC-mfn4ibOC5ewLcpmgl0C4g": {
+      "passRate": 1,
+      "avgScore": 0.9090909090909093,
+      "userEngagement": 0,
+      "totalTriaged": 165
+    },
+    "UCe02lGcO-ahAURWuxAJnjdA": {
+      "passRate": 1,
+      "avgScore": 2.5,
+      "userEngagement": 0,
+      "totalTriaged": 20
+    },
+    "UC3mk37VSKyC9eW2B17Q3Imw": {
+      "passRate": 1,
+      "avgScore": 1.1111111111111114,
+      "userEngagement": 0,
+      "totalTriaged": 90
+    },
+    "UCB1_GCA1xQB-Ida6-PqJ4og": {
+      "passRate": 1,
+      "avgScore": 1.3392857142857142,
+      "userEngagement": 0,
+      "totalTriaged": 112
+    },
+    "UCQa62kyOcsyhVUqyvRCbDNQ": {
+      "passRate": 1,
+      "avgScore": 2.2388059701492535,
+      "userEngagement": 0,
+      "totalTriaged": 67
+    },
+    "UCVTQunGrE3p7Oq8Owao5y_Q": {
+      "passRate": 1,
+      "avgScore": 1.7241379310344827,
+      "userEngagement": 0,
+      "totalTriaged": 87
+    },
+    "UCSHZKyawb77ixDdsGog4iWA": {
+      "passRate": 1,
+      "avgScore": 1.6853932584269662,
+      "userEngagement": 0,
+      "totalTriaged": 89
+    },
+    "UC4gD0czpXVv_LpADTSU624g": {
+      "passRate": 1,
+      "avgScore": 2.9411764705882355,
+      "userEngagement": 0,
+      "totalTriaged": 51
+    },
+    "UCBR8-60-B28hp2BmDPdntcQ": {
+      "passRate": 1,
+      "avgScore": 84,
+      "userEngagement": 0,
+      "totalTriaged": 2
+    },
+    "UCT_yBgKSiwb3WP4ACPnF5nA": {
+      "passRate": 1,
+      "avgScore": 2.142857142857143,
+      "userEngagement": 0,
+      "totalTriaged": 70
+    },
+    "UCsfasHJphdMDFkcse5sQ9Uw": {
+      "passRate": 1,
+      "avgScore": 3.061224489795918,
+      "userEngagement": 0,
+      "totalTriaged": 49
+    },
+    "UCdxGqN9_aBisOJHzIRTGLfg": {
+      "passRate": 1,
+      "avgScore": 4.285714285714286,
+      "userEngagement": 0,
+      "totalTriaged": 35
+    },
+    "UCRMiFgN0EEIPrhJP58kRMyw": {
+      "passRate": 1,
+      "avgScore": 5,
+      "userEngagement": 0,
+      "totalTriaged": 30
+    },
+    "UCHm8vWol8eNjTJZSjq2jaLQ": {
+      "passRate": 1,
+      "avgScore": 3.125,
+      "userEngagement": 0,
+      "totalTriaged": 16
+    },
+    "UC3H5lJfctAJRgHzY3JIuwsw": {
+      "passRate": 1,
+      "avgScore": 50,
+      "userEngagement": 0,
+      "totalTriaged": 3
+    },
+    "UC5ckqMQFqpqVbGJNiHhNE7Q": {
+      "passRate": 1,
+      "avgScore": 18.75,
+      "userEngagement": 0,
+      "totalTriaged": 8
+    }
+  },
+  "pendingQuestions": [],
+  "currentRubric": {
+    "version": 1,
+    "topicWeights": {},
+    "noveltyPreference": 0.5,
+    "technicalDepthPreference": 0.5,
+    "educationalPreference": 0.5,
+    "instantJunkRules": [],
+    "generatedAt": "2026-01-19T23:33:50.722Z"
+  }
+}

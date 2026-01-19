@@ -1,24 +1,12 @@
 import YouTube from "youtube-sr";
+import { YoutubeTranscript } from 'youtube-transcript';
+import { VideoItem } from "./types";
 
-export interface VideoItem {
-    id: string;
-    title: string;
-    thumbnail: string;
-    viewCount: number;
-    publishedAt: string;
-    channelTitle: string;
-    channelId: string;
-}
-
-export async function getChannelVideos(channelId: string, channelName?: string) {
+export async function getChannelVideos(channelId: string, channelName?: string): Promise<VideoItem[]> {
     try {
-        // Use channel name for search if available, otherwise fallback to ID
-        // Searching by name is much more likely to return actual videos from that channel
         const query = channelName || channelId;
-        const videos = await YouTube.search(query, { limit: 20, type: "video" });
+        const videos = await YouTube.search(query, { limit: 10, type: "video" });
 
-        // IMPORTANT: Strictly filter to ONLY include videos from THIS channel ID.
-        // This prevents "related" videos from other channels from ghosting into the feed.
         return videos
             .filter((video) => video.channel?.id === channelId)
             .map((video) => ({
@@ -29,6 +17,8 @@ export async function getChannelVideos(channelId: string, channelName?: string) 
                 publishedAt: video.uploadedAt || "",
                 channelTitle: video.channel?.name || "",
                 channelId: video.channel?.id || channelId,
+                description: video.description || "",
+                tags: [] // youtube-sr might not provide tags in search results, need details
             }));
     } catch (error: any) {
         console.error(`Scraping Error [getChannelVideos] (${channelId}):`, error.message);
@@ -36,9 +26,31 @@ export async function getChannelVideos(channelId: string, channelName?: string) 
     }
 }
 
+export async function fetchVideoDetails(videoId: string): Promise<Partial<VideoItem>> {
+    try {
+        const video = await YouTube.getVideo(`https://www.youtube.com/watch?v=${videoId}`);
+        return {
+            description: video.description || "",
+            tags: video.tags || []
+        };
+    } catch (error: any) {
+        console.error(`Error fetching video details (${videoId}):`, error.message);
+        return {};
+    }
+}
+
+export async function fetchTranscript(videoId: string): Promise<string> {
+    try {
+        const transcript = await YoutubeTranscript.fetchTranscript(videoId);
+        return transcript.map(t => t.text).join(' ');
+    } catch (error: any) {
+        console.warn(`Transcript not available for (${videoId}):`, error.message);
+        return "";
+    }
+}
+
 export async function resolveChannelId(url: string) {
     try {
-        // 1. Try search by full URL
         const videos = await YouTube.search(url, { limit: 1, type: "video" });
         if (videos.length > 0 && videos[0].channel) {
             return {
@@ -47,7 +59,6 @@ export async function resolveChannelId(url: string) {
             };
         }
 
-        // 2. Try search as a channel
         const channels = await YouTube.search(url, { limit: 1, type: "channel" });
         if (channels.length > 0) {
             return {

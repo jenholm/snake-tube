@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import { getChannelVideos, VideoItem } from "@/lib/youtube";
+import { getChannelVideos } from "@/lib/youtube";
 import { getChannels } from "@/lib/db";
+import { scoreVideosWithAI } from "@/lib/ai";
 import { unstable_noStore as noStore } from "next/cache";
 
 export const dynamic = "force-dynamic";
@@ -20,13 +21,14 @@ export async function GET() {
         );
 
         const videoResults = await Promise.all(videoPromises);
-        let allVideos: VideoItem[] = videoResults.flat();
+        let allVideos = videoResults.flat();
 
-        // Sort by viewCount descending
-        allVideos.sort((a, b) => b.viewCount - a.viewCount);
+        // Integrate AI Personalization
+        console.log(`[API] Scoring ${allVideos.length} videos with AI...`);
+        const personalizedVideos = await scoreVideosWithAI(allVideos);
 
         // Limit to 200
-        const limitedVideos = allVideos.slice(0, 200);
+        const limitedVideos = personalizedVideos.slice(0, 200);
 
         return NextResponse.json(limitedVideos);
     } catch (error: any) {
