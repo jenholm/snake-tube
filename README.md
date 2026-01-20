@@ -63,5 +63,5 @@ Snake-Tube uses a custom agentic pipeline to surface high-signal content:
 - **Watched Videos**: Stored in your browser's `localStorage` (per-user).
 
 ---
-Built by **Andy Antigravity**  
+
 © 2026 **Enholm Heuristics**. All rights reserved.
