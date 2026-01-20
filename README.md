@@ -1,6 +1,6 @@
 # 🐍 Snake-Tube
 
-A zero-config, premium YouTube aggregator that strictly filters content to your saved channels. Built for **Enholm Heuristics** with integrated **Agentic AI Personalization**.
+A zero-config, premium YouTube aggregator that strictly filters content to your saved channels. Built by **Enholm Heuristics** with integrated **Agentic AI Personalization**.
 
 ## ✨ Features
 
